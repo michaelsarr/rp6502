@@ -288,8 +288,30 @@ static const uint8_t __in_flash("haxscii") haxscii[1024] = {
     0x00, 0x08, 0x0C, 0xFE, 0xFE, 0x0C, 0x08, 0x00, 0x00, 0x18, 0x3C, 0x7E, 0x18, 0x18, 0x18, 0x18};
 
 // Temporary scaffolding
-void vga_render_color_bar(scanvideo_scanline_buffer_t *buffer)
+void vga_render_color_bar(scanvideo_scanline_buffer_t * dest)
 {
+    /*
+    int line = scanvideo_scanline_number(dest->scanline_id);
+    uint8_t *data = xram + (line * 480);
+    uint16_t *pbuf = (void *)dest->data;
+    ++pbuf;
+    for (int i = 0; i < 480;)
+    {
+        *++pbuf = *data;
+        ++data;
+        ++i;
+    }
+    uint32_t *buf = (void *)dest->data;
+    buf[0] = COMPOSABLE_RAW_RUN | (buf[1] << 16);
+    buf[1] = 477 | (buf[1] & 0xFFFF0000);
+    buf[481] = COMPOSABLE_RAW_1P | 0;
+    buf[482] = COMPOSABLE_EOL_SKIP_ALIGN;
+    dest->data_used = 483;
+    dest->status = SCANLINE_OK;
+
+    */
+
+
     uint line_num = scanvideo_scanline_number(buffer->scanline_id);
     int32_t color_step = 1 + (line_num * 7 / vga_mode_current->height);
     color_step = PICO_SCANVIDEO_PIXEL_FROM_RGB5(color_step & 1u, (color_step >> 1u) & 1u, (color_step >> 2u) & 1u);
@@ -309,6 +331,8 @@ void vga_render_color_bar(scanvideo_scanline_buffer_t *buffer)
     *p++ = 0;
     buffer->data_used = ((uint32_t *)p) - buffer->data;
     buffer->status = SCANLINE_OK;
+    
+
 }
 
 // Temporary scaffolding
