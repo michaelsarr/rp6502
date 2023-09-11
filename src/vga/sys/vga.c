@@ -288,7 +288,7 @@ static const uint8_t __in_flash("haxscii") haxscii[1024] = {
     0x00, 0x08, 0x0C, 0xFE, 0xFE, 0x0C, 0x08, 0x00, 0x00, 0x18, 0x3C, 0x7E, 0x18, 0x18, 0x18, 0x18};
 
 // Temporary scaffolding
-void vga_render_color_bar(scanvideo_scanline_buffer_t * dest)
+void vga_render_color_bar(scanvideo_scanline_buffer_t * buffer)
 {
     /*
     int line = scanvideo_scanline_number(dest->scanline_id);

@@ -12,6 +12,7 @@
 #include "term/font.h"
 #include "hardware/dma.h"
 #include "hardware/structs/bus_ctrl.h"
+#include "primg.h"
 #include <stdio.h>
 
 #define VGA_PIX_PIO pio1
@@ -142,6 +143,17 @@ static void pix_video_mode(uint16_t mode)
         vga_resolution(vga_320_180);
         vga_terminal(false);
         break;
+
+    case 3:
+        vga_resolution(vga_640_480);
+        vga_terminal(false);
+        break;
+
+    case 4:
+        vga_resolution(vga_640_360);
+        vga_terminal(false);
+        break;    
+
     }
 }
 
@@ -177,6 +189,17 @@ void pix_task(void)
             if (addr == 1 || addr == 2)
                 for (int i = 3; i < PIX_XREGS_MAX; i++)
                     pix_xregs[i] = 0;
+
+            if(addr == 0x20)
+              {
+                vga_drawline(word);
+              }
+
+            if(addr == 0x21)
+              {
+                plot_circle(word);
+              }  
+
         }
     }
 }

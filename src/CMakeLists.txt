@@ -121,6 +121,7 @@ target_sources(rp6502_vga PRIVATE
     vga/usb/descriptors.c
     vga/usb/probe.c
     vga/usb/serno.c
+    vga/sys/primg.c
 )
 
 target_link_libraries(rp6502_vga PRIVATE
